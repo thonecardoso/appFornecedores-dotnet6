@@ -11,8 +11,8 @@ public class AppDbContext : DbContext
     }
 
     public DbSet<Product> Products { get; set; }
-    public DbSet<Provider> providers { get; set; }
-    public DbSet<Address> addresses { get; set; }
+    public DbSet<Provider> Providers { get; set; }
+    public DbSet<Address> Addresses { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
