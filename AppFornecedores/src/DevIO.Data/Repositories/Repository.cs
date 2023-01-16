@@ -45,7 +45,7 @@ public abstract class Repository<TEntity> : IRepository<TEntity> where TEntity :
         await SaveChanges();
     }
 
-    public virtual async Task Upadate(TEntity entity)
+    public virtual async Task Update(TEntity entity)
     {
         _dbSet.Update(entity);
         await SaveChanges();

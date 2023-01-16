@@ -11,9 +11,9 @@ public class ProductRepository : Repository<Product>, IProductRepository
     {
     }
 
-    public async Task<Product> GetProductProvider()
+    public async Task<Product> GetProductProvider(Guid id)
     {
-        return await _db.Products.AsNoTracking().Include(f => f.Provider).FirstOrDefaultAsync(p => p.Id == p.Id);
+        return await _db.Products.AsNoTracking().Include(f => f.Provider).FirstOrDefaultAsync(p => p.Id == id);
     }
 
     public async Task<IEnumerable<Product>> GetProductsByProvider(Guid providerId)

@@ -8,6 +8,9 @@ namespace DevIO.App.ViewModels
     {
         [Key]
         public Guid Id { get; set; }
+        [Required(ErrorMessage = "The field {0} is required")]
+        [DisplayName("Provider")]
+        public Guid ProviderId { get; set; }
 
         [Required(ErrorMessage = "The field {0} is required")]
         [StringLength(200, ErrorMessage = "The field {0} must have beetween {2} and {1} characters", MinimumLength = 2)]
@@ -17,7 +20,7 @@ namespace DevIO.App.ViewModels
         [Required(ErrorMessage = "The field {0} is required")]
         [StringLength(1000, ErrorMessage = "The field {0} must have beetween {2} and {1} characters", MinimumLength = 2)]
         public string Description { get; set; }
-        public IFormFile UploadImage { get; set; }
+        //public IFormFile UploadImage { get; set; }
         public string Image { get; set; }
 
         [Required(ErrorMessage = "The field {0} is required")]
