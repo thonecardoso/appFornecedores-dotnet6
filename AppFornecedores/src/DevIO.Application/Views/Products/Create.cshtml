@@ -14,7 +14,10 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="ProviderId" class="control-label"></label>
-                <select asp-for="ProviderId" class ="form-control" asp-items="ViewBag.ProviderId"></select>
+                <select asp-for="ProviderId" class ="form-control" asp-items="@(new SelectList(Model.Providers, "Id", "Name"))">
+                    <option></option>
+                </select>
+                <span asp-validation-for="ProviderId" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Name" class="control-label"></label>
@@ -27,9 +30,16 @@
                 <span asp-validation-for="Description" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Image" class="control-label"></label>
-                <input asp-for="Image" class="form-control" />
-                <span asp-validation-for="Image" class="text-danger"></span>
+                <label asp-for="UploadImage" class="control-label"></label>
+
+                <div class="input-group custom-file-button">
+                    <input type="file" class="form-control" id="UploadImage" asp-for="UploadImage" />
+                    <label data-browse="Search" style="width: 400px" class="custom-file-label" for="UploadImage"></label>
+                    <label style="display: none" id="img_name"><</label>
+                </div>
+
+
+                <span asp-validation-for="UploadImage" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Value" class="control-label"></label>
@@ -54,4 +64,16 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <script>
+        $("#UploadImage").change(function(){
+            $("#img_name").text(this.files[0].name);
+            $("#img_name")[0].style.display = 'block';
+        });
+
+        $("#UploadImage").attr("data-val", "true");
+        $("#UploadImage").attr("data-val-required", "Fill in image field");
+    </script>
+
+
 }

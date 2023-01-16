@@ -23,6 +23,6 @@ namespace DevIO.Application.ViewModels
         [DisplayName("Enabled?")]
         public bool Enabled { get; set; }
 
-        public IEnumerable<ProductViewModel> Products { get; set; }
+        public IEnumerable<ProductViewModel>? Products { get; set; }
     }
 }
