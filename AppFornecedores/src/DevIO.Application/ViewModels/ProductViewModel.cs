@@ -19,6 +19,8 @@ namespace DevIO.Application.ViewModels
         [Required(ErrorMessage = "The field {0} is required")]
         [StringLength(1000, ErrorMessage = "The field {0} must have beetween {2} and {1} characters", MinimumLength = 2)]
         public string Description { get; set; }
+
+        [DisplayName("Product Image")]
         public IFormFile UploadImage { get; set; }
         public string Image { get; set; }
 
