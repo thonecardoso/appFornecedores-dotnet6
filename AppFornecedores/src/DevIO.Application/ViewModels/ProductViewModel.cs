@@ -21,8 +21,8 @@ namespace DevIO.Application.ViewModels
         public string Description { get; set; }
 
         [DisplayName("Product Image")]
-        public IFormFile UploadImage { get; set; }
-        public string Image { get; set; }
+        public IFormFile? UploadImage { get; set; }
+        public string? Image { get; set; }
 
         [Required(ErrorMessage = "The field {0} is required")]
         public decimal Value { get; set; }
@@ -33,7 +33,7 @@ namespace DevIO.Application.ViewModels
         [DisplayName("Enabled?")]
         public bool Enabled { get; set; }
 
-        public ProviderViewModel Provider { get; set; }
-        public IEnumerable<ProviderViewModel> Providers { get; set; }
+        public ProviderViewModel? Provider { get; set; }
+        public IEnumerable<ProviderViewModel>? Providers { get; set; }
     }
 }
