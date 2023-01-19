@@ -3,6 +3,7 @@ using DevIO.Application.ViewModels;
 using DevIO.Business.Interfaces;
 using DevIO.Business.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Update.Internal;
 using System.Net;
 
 namespace DevIO.Application.Controllers
@@ -52,7 +53,7 @@ namespace DevIO.Application.Controllers
             if (!ModelState.IsValid) return View(productViewModel);
 
             var imgPrefix = Guid.NewGuid() + "_";
-            if(!await UploadFile(productViewModel.UploadImage, imgPrefix))
+            if (!await UploadFile(productViewModel.UploadImage, imgPrefix))
             {
                 return View(productViewModel);
             }
@@ -82,9 +83,30 @@ namespace DevIO.Application.Controllers
         {
             if (id != productViewModel.Id) return NotFound();
 
+            var productViewModelUpdate = await GetProduct(id);
+            productViewModel.Provider = productViewModelUpdate.Provider;
+            productViewModel.Image = productViewModelUpdate.Image;
+
             if (!ModelState.IsValid) return View(productViewModel);
 
-            await _productRepository.Update(_mapper.Map<Product>(productViewModel));
+            if (productViewModel.UploadImage != null)
+            {
+                var imgPrefix = Guid.NewGuid() + "_";
+                if (!await UploadFile(productViewModel.UploadImage, imgPrefix))
+                {
+                    return View(productViewModel);
+                }
+
+                productViewModelUpdate.Image = imgPrefix + productViewModel.UploadImage.FileName;
+            }
+
+            productViewModelUpdate.Name = productViewModel.Name;
+            productViewModelUpdate.Description = productViewModel.Description;
+            productViewModelUpdate.Value = productViewModel.Value;
+            productViewModelUpdate.Enabled = productViewModel.Enabled;
+
+            //await Update(productViewModelUpdate);
+            await _productRepository.Update(_mapper.Map<Product>(productViewModelUpdate));
 
             return RedirectToAction("Index");
 
@@ -113,6 +135,21 @@ namespace DevIO.Application.Controllers
             await _productRepository.DeleteById(id);
 
             return RedirectToAction(nameof(Index));
+        }
+
+        private async Task Update(ProductViewModel product)
+        {
+            var p = await _productRepository.GetById(product.Id);
+
+            p.Image = product.Image;
+            p.Name = product.Name;
+            p.Description = product.Description;
+            p.Value = product.Value;
+            p.Enabled = product.Enabled;
+
+
+
+            await _productRepository.Update(p);
         }
 
         private async Task<ProductViewModel> GetProduct(Guid id)
@@ -144,7 +181,7 @@ namespace DevIO.Application.Controllers
                 return false;
             }
 
-            using(var stream = new FileStream(path, FileMode.Create))
+            using (var stream = new FileStream(path, FileMode.Create))
             {
                 await file.CopyToAsync(stream);
             }
