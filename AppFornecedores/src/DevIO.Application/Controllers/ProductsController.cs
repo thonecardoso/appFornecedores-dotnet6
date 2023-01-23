@@ -105,8 +105,8 @@ namespace DevIO.Application.Controllers
             productViewModelUpdate.Value = productViewModel.Value;
             productViewModelUpdate.Enabled = productViewModel.Enabled;
 
-            //await Update(productViewModelUpdate);
-            await _productRepository.Update(_mapper.Map<Product>(productViewModelUpdate));
+            await Update(productViewModelUpdate);
+            //await _productRepository.Update(_mapper.Map<Product>(productViewModelUpdate));
 
             return RedirectToAction("Index");
 

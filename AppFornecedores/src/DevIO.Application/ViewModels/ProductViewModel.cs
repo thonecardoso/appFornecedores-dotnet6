@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using DevIO.Application.Extensions;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace DevIO.Application.ViewModels
@@ -24,6 +25,7 @@ namespace DevIO.Application.ViewModels
         public IFormFile? UploadImage { get; set; }
         public string? Image { get; set; }
 
+        [Currency]
         [Required(ErrorMessage = "The field {0} is required")]
         public decimal Value { get; set; }
 
