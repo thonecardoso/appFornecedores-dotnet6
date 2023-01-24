@@ -1,54 +1,70 @@
 ﻿@model DevIO.Application.ViewModels.ProductViewModel
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Product Details";
 }
 
-<h1>Details</h1>
+<h1>@ViewData["Title"]</h1>
 
-<div>
-    <h4>ProductViewModel</h4>
+<div class="container">
+    <h4>@Html.DisplayFor(model => model.Name)</h4>
     <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Description)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Image)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Image)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Value)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Value)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Enabled)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Enabled)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Provider)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Provider.Document)
-        </dd>
-    </dl>
+    <div class="row">
+        <dl class="col-4">
+            <dd>
+                <img class="img-fluid" src="~/images/@Html.DisplayFor(model => model.Image)" alt="@Html.DisplayFor(model => model.Image)" />
+            </dd>
+        </dl>
+        <dl class="row col-sm-6">
+            <dt class="col-sm-3">
+                @Html.DisplayNameFor(model => model.Provider)
+            </dt>
+            <br />
+            <dd class="col-sm-9">
+                @Html.DisplayFor(model => model.Provider.Name)
+            </dd>
+            <dt class="col-sm-3">
+                @Html.DisplayNameFor(model => model.Name)
+            </dt>
+            <br />
+            <dd class="col-sm-9">
+                @Html.DisplayFor(model => model.Name)
+            </dd>
+            <dt class="col-sm-3">
+                @Html.DisplayNameFor(model => model.Description)
+            </dt>
+            <br />
+            <dd class="col-sm-9">
+                @Html.DisplayFor(model => model.Description)
+            </dd>
+            <dt class="col-sm-3">
+                @Html.DisplayNameFor(model => model.Value)
+            </dt>
+            <br />
+            <dd class="col-sm-9">
+                @Model.Value.ToString("C")
+            </dd>
+            <dt class="col-sm-3">
+                @Html.DisplayNameFor(model => model.RegistrationDate)
+            </dt>
+            <br />
+            <dd class="col-sm-9">
+                @Html.DisplayFor(model => model.RegistrationDate)
+            </dd>
+            <dt class="col-sm-3">
+                @Html.DisplayNameFor(model => model.Enabled)
+            </dt>
+            <br />
+            <dd class="col-sm-9">
+                @Html.DisplayFor(model => model.Enabled)
+            </dd>
+
+            <div class="form-group">
+                <a class="btn btn-dark" asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
+                <a class="btn btn-info" href="javascript:window.history.back();">Go Back</a>
+            </div>
+        </dl>
+
+    </div>
 </div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
-</div>
+
