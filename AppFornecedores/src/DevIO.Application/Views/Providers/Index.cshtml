@@ -1,4 +1,5 @@
-﻿@model IEnumerable<DevIO.Application.ViewModels.ProviderViewModel>
+﻿@using DevIO.Application.Extensions
+@model IEnumerable<DevIO.Application.ViewModels.ProviderViewModel>
 
 @{
     ViewData["Title"] = "Providers List";
@@ -33,7 +34,7 @@
                     @Html.DisplayFor(modelItem => item.Name)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Document)
+                    @this.FormatDocument(item.TypeProvider, item.Document)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Enabled)
